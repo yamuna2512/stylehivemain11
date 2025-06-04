@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router";
+import { useNavigate } from "react-router-dom";
 
 import Empty from "../components/default/Empty";
 import Footer from "../components/default/Footer";
@@ -18,7 +18,7 @@ export default function Checkout() {
 	const dispatch = useDispatch();
 	const user = getUser(selector);
 	const errors = getOrders(selector).errors;
-	const history = useHistory();
+	const history = useNavigate();
 	const carts = getCarts(selector);
 	const [isLoading, setIsLoading] = useState(false);
 	const isEmpty = carts.results && carts.results.length > 0 ? false : true;

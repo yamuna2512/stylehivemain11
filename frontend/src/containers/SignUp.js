@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory, useLocation } from "react-router";
+import { useNavigate, useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
 import Footer from "../components/default/Footer";
 import Header from "../components/default/Header";
@@ -9,7 +9,7 @@ import { signUp } from "../reducks/users/operations";
 import { getUser } from "../reducks/users/selectors";
 
 export default function SignUp() {
-	const history = useHistory();
+	const history = useNavigate();
 	const { search } = useLocation();
 	const dispatch = useDispatch();
 	const selector = useSelector((state) => state);

@@ -1,20 +1,40 @@
-// import logo from './logo.svg';
-
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import './App.css';
 
-import React from 'react';
-import { BrowserRouter } from 'react-router-dom';
+import Cart from './containers/Cart';
+import Checkout from './containers/Checkout';
+import Homepage from './containers/Homepage';
+import Landing from './containers/Landing';
+import SignIn from './containers/SignIn';
+import SignUp from './containers/SignUp';
+import ThankYou from './containers/ThankYou';
 
-import Router from './Router';
+import { fetchUserFromLocalStorage } from './reducks/users/operations';
+import { getUser } from './reducks/users/selectors';
 
+const AppRoutes = () => {
+    const dispatch = useDispatch();
+    const selector = useSelector((state) => state);
+    const user = getUser(selector);
+    const token = user?.token;
 
-function App() {
-	return (
-		<BrowserRouter>
-		  {/* <Router path="/" element={<HomePage />} /> */}
-			<Router />
-		</BrowserRouter>
-	);
-}
+    useEffect(() => {
+        dispatch(fetchUserFromLocalStorage());
+    }, [dispatch]);
 
-export default App;
+    return (
+        <Routes>
+            <Route path="/" element={token ? <Homepage /> : <Landing />} />
+            <Route path="/sign-in" element={<SignIn />} />
+            <Route path="/sign-up" element={<SignUp />} />
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/checkout" element={<Checkout />} />
+            <Route path="/thank-you" element={<ThankYou />} />
+            <Route path="*" element={<Navigate to="/" />} />
+        </Routes>
+    );
+};
+
+export default AppRoutes;

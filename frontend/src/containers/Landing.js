@@ -81,16 +81,16 @@ export default function Landing() {
 								<Link to={{ pathname: "sign-in" }}>
                   <button className="offer-btn offer-001">GET NOW</button>
                 </Link>
-							</div>
-							<div className="offer-items">
-								<img className="offer-image" src={OfferImage003} alt="" />
-								<div className="offer-text">
-									<p>UP TO 50% OFF</p>
+							 </div>
+							<div className="offer-items"> 
+								 <img className="offer-image" src={OfferImage003} alt="" /> */
+								<div className="offer-text"> 
+									 <p>UP TO 50% OFF</p>
 									<p>On all the Bottom brands</p>
-								</div>
-								<Link to={{ pathname: "sign-in" }}>
-                  <button className="offer-btn offer-001">GET NOW</button>
-                </Link>
+								</div> 
+								 <Link to={{ pathname: "sign-in" }}> 
+                  <button className="offer-btn offer-001">GET NOW</button>  
+                </Link> 
 							</div>
 							<div className="offer-items">
 								<img className="offer-image" src={OfferImage004} alt="" />
