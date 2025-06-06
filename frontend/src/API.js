@@ -1,5 +1,4 @@
 import axios from "axios";
-// require('dotenv').config()
 
 export const LOGIN_USER_KEY = "HIVE_TECHWEAR_LOGIN_USER_KEY";
 const { REACT_APP_ENVIRONMENT, REACT_APP_API_BASE_URL_PROD, REACT_APP_API_BASE_URL_DEV } = process.env;
@@ -13,20 +12,22 @@ const api = axios.create({
   },
 });
 
-
-
 api.interceptors.request.use(
   (config) => {
     if (config.requireToken) {
       const user = localStorage.getItem(LOGIN_USER_KEY)
         ? JSON.parse(localStorage.getItem(LOGIN_USER_KEY))
         : null;
-      config.headers.common["Authorization"] = user.token;
+      if (user && user.token) {
+        config.headers["Authorization"] = user.token;
+      }
     }
-
     return config;
   },
-  (err) => console.error(err)
+  (err) => {
+    console.error(err);
+    return Promise.reject(err);
+  }
 );
 
 api.interceptors.response.use(
@@ -34,11 +35,10 @@ api.interceptors.response.use(
     return response.data;
   },
   (error) => {
-    console.log("error.response", error);
-    if (error.response.status === 401) {
+    console.log("error.response", error.response);
+    if (error.response && error.response.status === 401) {
       localStorage.removeItem(LOGIN_USER_KEY);
     }
-
     return Promise.reject(error);
   }
 );
@@ -46,11 +46,9 @@ api.interceptors.response.use(
 export default class API {
   signUp = async (signUpBody) => {
     const formData = new FormData();
-
     for (const key in signUpBody) {
       formData.append(key, signUpBody[key]);
     }
-
     return api.post("/users/signup/", formData);
   };
 
@@ -100,4 +98,3 @@ export default class API {
     return api.post("/orders/add/", checkoutOrderBody, { requireToken: true });
   };
 }
-

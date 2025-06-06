@@ -15,11 +15,18 @@ export default function SignOutLink() {
     const [openModalSignOut, setOpenModalSignOut] = useState(false);
     return (
         <>
-              <li onClick={() => setOpenModalSignOut(true)}>
+
+            <li onClick={() => setOpenModalSignOut(true)}>
+                <Link className="menu__item" to="#">
+                    <img className="sign-out-icon" src={SignOutIcon} alt="" />
+                </Link>
+            </li>
+
+              {/* <li onClick={() => setOpenModalSignOut(true)}>
                   <link className="menu__item" to="#">
                         <img className="sign-out-icon" src={SignOutIcon} alt="" />
                   </link>
-              </li>
+              </li> */}
               {openModalSignOut
                       ? ReactDOM.createPortal(
                                     <div id="custom-modal" className={'custom-modal ${openModalSignOut ? "" : "modal-hide"}'}>

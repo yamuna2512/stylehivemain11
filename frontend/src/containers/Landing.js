@@ -83,7 +83,7 @@ export default function Landing() {
                 </Link>
 							 </div>
 							<div className="offer-items"> 
-								 <img className="offer-image" src={OfferImage003} alt="" /> */
+								 <img className="offer-image" src={OfferImage003} alt="" /> 
 								<div className="offer-text"> 
 									 <p>UP TO 50% OFF</p>
 									<p>On all the Bottom brands</p>
